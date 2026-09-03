@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Ajustes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="settings-content">
+  <section class="settings-section">
+    <h2 class="settings-section__title">Copia de seguridad</h2>
+    <p class="settings-section__hint">
+      {{ recordCount().length }} registro{{ recordCount().length === 1 ? '' : 's' }} guardados en
+      este dispositivo.
+    </p>
+
+    <ion-list inset="true">
+      <ion-item button="true" [disabled]="isExporting()" (click)="exportBackup()">
+        <ion-icon slot="start" name="cloud-download-outline" aria-hidden="true"></ion-icon>
+        <ion-label>Exportar copia de seguridad</ion-label>
+      </ion-item>
+      <ion-item button="true" [disabled]="isImporting()" (click)="triggerImport()">
+        <ion-icon slot="start" name="cloud-upload-outline" aria-hidden="true"></ion-icon>
+        <ion-label>Importar copia de seguridad</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <input
+      #fileInput
+      type="file"
+      accept="application/json,.json"
+      class="settings-file-input"
+      aria-label="Seleccionar archivo de copia de seguridad"
+      (change)="onFileSelected($event)"
+    />
+  </section>
+
+  <section class="settings-section">
+    <h2 class="settings-section__title">Privacidad</h2>
+    <ion-card class="settings-privacy-card">
+      <ion-card-content>
+        <p>
+          <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+          Todos tus registros se almacenan localmente en este dispositivo.
+        </p>
+        <p>Thought Record no envía tus datos a ningún servidor.</p>
+        <p>
+          Si eliminas los datos del navegador, podrías perder los registros. Utiliza la copia de
+          seguridad periódicamente.
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </section>
+
+  <section class="settings-section">
+    <h2 class="settings-section__title">Acerca de</h2>
+    <ion-note class="settings-version">Thought Record · v0.1.0 · código abierto</ion-note>
+  </section>
+</ion-content>
