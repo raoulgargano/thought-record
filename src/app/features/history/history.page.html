@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registros</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      placeholder="Buscar por situación, pensamiento o emoción"
+      [debounce]="250"
+      (ionInput)="onSearchChange($event.detail.value)"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="history-content">
+  <div class="week-nav">
+    <button
+      type="button"
+      class="week-nav__button"
+      (click)="goToPreviousWeek()"
+      aria-label="Semana anterior"
+    >
+      <ion-icon name="chevron-back-outline" aria-hidden="true"></ion-icon>
+    </button>
+    <span class="week-nav__label">{{ weekLabel() }}</span>
+    <button
+      type="button"
+      class="week-nav__button"
+      (click)="goToNextWeek()"
+      aria-label="Semana siguiente"
+    >
+      <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+    </button>
+  </div>
+
+  @if (weekRecords().length === 0) {
+    <app-empty-state
+      icon="document-text-outline"
+      title="Sin registros"
+      message="No hay registros para esta semana o búsqueda."
+    />
+  } @else {
+    @for (record of weekRecords(); track record.id) {
+      <app-record-card
+        [record]="record"
+        [showThought]="true"
+        [showAllEmotions]="true"
+        [deletable]="true"
+        (cardClick)="openRecord(record.id)"
+        (deleteClick)="deleteRecord(record)"
+      />
+    }
+  }
+</ion-content>
