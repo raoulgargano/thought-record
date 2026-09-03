@@ -174,7 +174,18 @@ src/app/
     settings/      Backup export/import and privacy information
   shared/
     components/    Reusable presentational components (record card, empty state)
+
+public/
+  icons/           App icons — all PNG sizes are rendered from icons/icon.svg
+  manifest.webmanifest
 ```
+
+## App icon
+
+`public/icons/icon.svg` is the source of truth for the app icon (a lotus on a
+calm blue-to-teal gradient). The PNG sizes referenced by the web manifest, the
+iOS `apple-touch-icon` and `favicon.ico` are all rendered from it, so editing
+that one SVG and re-exporting the sizes is enough to rebrand the app.
 
 ## Contributing
 
