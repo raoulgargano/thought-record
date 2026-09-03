@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registro de pensamientos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="home-content">
+  <div class="home-header">
+    <p class="home-header__date">{{ todayLabel | titlecase }}</p>
+
+    <ion-button expand="block" size="large" class="home-header__cta" (click)="goToNewRecord()">
+      <ion-icon slot="start" name="add-outline" aria-hidden="true"></ion-icon>
+      Nuevo registro
+    </ion-button>
+  </div>
+
+  <section class="home-section">
+    <div class="home-section__heading">
+      <h2>Esta semana</h2>
+      <span class="home-section__count">
+        {{ weekRecords().length }} registro{{ weekRecords().length === 1 ? '' : 's' }} esta semana
+      </span>
+    </div>
+
+    @if (weekRecords().length === 0) {
+      <app-empty-state
+        icon="document-text-outline"
+        title="Todavía no hay registros"
+        message="Los registros que crees durante la semana aparecerán aquí."
+      />
+    } @else {
+      @for (record of weekRecords(); track record.id) {
+        <app-record-card [record]="record" (cardClick)="goToEditRecord(record.id)" />
+      }
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        [disabled]="isGeneratingReport()"
+        (click)="generateWeeklyReport()"
+      >
+        @if (isGeneratingReport()) {
+          Generando informe…
+        } @else {
+          Generar informe semanal
+        }
+      </ion-button>
+    }
+  </section>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-card
+  button="true"
+  class="record-card"
+  (click)="onCardClick()"
+  [attr.aria-label]="
+    'Registro del ' + dayLabel() + ' a las ' + timeLabel() + ': ' + record().situation
+  "
+>
+  <ion-card-content>
+    <div class="record-card__header">
+      <span class="record-card__datetime">{{ dayLabel() }} · {{ timeLabel() }}</span>
+      @if (deletable()) {
+        <ion-button
+          fill="clear"
+          size="small"
+          color="medium"
+          class="record-card__delete"
+          aria-label="Eliminar registro"
+          (click)="onDeleteClick($event)"
+        >
+          <ion-icon slot="icon-only" name="trash-outline" aria-hidden="true"></ion-icon>
+        </ion-button>
+      }
+    </div>
+
+    <p class="record-card__situation">{{ record().situation }}</p>
+
+    @if (showThought()) {
+      <p class="record-card__thought">{{ record().thought }}</p>
+    }
+
+    @if (record().emotions.length > 0) {
+      <div class="record-card__emotions">
+        @if (showAllEmotions()) {
+          @for (emotion of record().emotions; track emotion.id) {
+            <ion-badge color="light">{{ emotion.name }} · {{ emotion.intensity }}/10</ion-badge>
+          }
+        } @else if (mainEmotion(); as emotion) {
+          <ion-badge color="light">{{ emotion.name }} · {{ emotion.intensity }}/10</ion-badge>
+        }
+      </div>
+    }
+  </ion-card-content>
+</ion-card>
