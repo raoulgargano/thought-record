@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Informes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="reports-content">
+  @if (weeks().length === 0) {
+    <app-empty-state
+      icon="stats-chart-outline"
+      title="Todavía no hay informes"
+      message="Crea algún registro para poder generar tu primer informe semanal."
+    />
+  } @else {
+    @for (week of weeks(); track week.key) {
+      <ion-card class="week-card">
+        <ion-card-content>
+          <div class="week-card__header">
+            <span class="week-card__label">
+              {{ week.isCurrent ? 'Semana actual' : weekLabel(week.range) }}
+            </span>
+            @if (week.isCurrent) {
+              <ion-badge color="primary">Actual</ion-badge>
+            }
+          </div>
+          <p class="week-card__range">{{ weekShortRange(week.range) }}</p>
+          <p class="week-card__count">
+            {{ week.records.length }} registro{{ week.records.length === 1 ? '' : 's' }}
+          </p>
+
+          <div class="week-card__actions">
+            <ion-button fill="outline" size="small" (click)="viewWeek(week)">Ver</ion-button>
+            <ion-button
+              fill="solid"
+              size="small"
+              [disabled]="generatingWeekKey() === week.key || week.records.length === 0"
+              (click)="generatePdf(week)"
+            >
+              {{ generatingWeekKey() === week.key ? 'Generando…' : 'Generar PDF' }}
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    }
+  }
+</ion-content>
