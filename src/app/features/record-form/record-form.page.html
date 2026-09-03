@@ -1,0 +1,183 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ pageTitle() }}</ion-title>
+    @if (isEditMode()) {
+      <ion-buttons slot="end">
+        <ion-button color="danger" (click)="confirmDelete()" aria-label="Eliminar registro">
+          <ion-icon slot="icon-only" name="trash-outline" aria-hidden="true"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    }
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="record-form-content">
+  <form [formGroup]="form" (ngSubmit)="save()" class="record-form">
+    <section class="record-form__section">
+      <ion-item lines="full">
+        <ion-label>Fecha y hora</ion-label>
+        <ion-datetime-button slot="end" datetime="recordDatetime"></ion-datetime-button>
+      </ion-item>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="recordDatetime"
+            presentation="date-time"
+            [value]="form.value.recordDate"
+            (ionChange)="form.get('recordDate')?.setValue($any($event.detail.value))"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </section>
+
+    <section class="record-form__section">
+      <h2 class="record-form__label">SITUACIÓN</h2>
+      <p class="record-form__question">¿Qué ocurrió?</p>
+      <ion-item
+        lines="full"
+        [class.ion-invalid]="form.get('situation')?.invalid && form.get('situation')?.touched"
+      >
+        <ion-textarea
+          formControlName="situation"
+          autoGrow="true"
+          rows="3"
+          placeholder="Describe brevemente la situación…"
+          aria-label="¿Qué ocurrió?"
+        ></ion-textarea>
+      </ion-item>
+      @if (form.get('situation')?.invalid && form.get('situation')?.touched) {
+        <p class="record-form__error" role="alert">La situación es obligatoria.</p>
+      }
+    </section>
+
+    <section class="record-form__section">
+      <h2 class="record-form__label">PENSAMIENTO</h2>
+      <p class="record-form__question">¿Qué pensé?</p>
+      <ion-item
+        lines="full"
+        [class.ion-invalid]="form.get('thought')?.invalid && form.get('thought')?.touched"
+      >
+        <ion-textarea
+          formControlName="thought"
+          autoGrow="true"
+          rows="3"
+          placeholder="Describe el pensamiento que tuviste…"
+          aria-label="¿Qué pensé?"
+        ></ion-textarea>
+      </ion-item>
+      @if (form.get('thought')?.invalid && form.get('thought')?.touched) {
+        <p class="record-form__error" role="alert">El pensamiento es obligatorio.</p>
+      }
+    </section>
+
+    <section class="record-form__section">
+      <h2 class="record-form__label">¿Cuánto me lo creí?</h2>
+      <ion-item lines="none" class="record-form__range-item">
+        <ion-range
+          formControlName="beliefLevel"
+          min="0"
+          max="10"
+          step="1"
+          snaps="true"
+          pin="true"
+          aria-label="Nivel de creencia, de 0 a 10"
+        >
+          <ion-label slot="start">0</ion-label>
+          <ion-label slot="end">10</ion-label>
+        </ion-range>
+      </ion-item>
+      <p class="record-form__range-value">{{ form.value.beliefLevel }}/10</p>
+    </section>
+
+    <section class="record-form__section">
+      <h2 class="record-form__label">EMOCIONES</h2>
+      <p class="record-form__question">¿Cómo me sentí?</p>
+
+      <div formArrayName="emotions">
+        @for (emotionGroup of emotionsArray.controls; track emotionGroup; let i = $index) {
+          <div class="emotion-row" [formGroupName]="i">
+            <div class="emotion-row__top">
+              <ion-item lines="none" class="emotion-row__select">
+                <ion-select
+                  formControlName="preset"
+                  interface="popover"
+                  [attr.aria-label]="'Emoción ' + (i + 1)"
+                >
+                  @for (option of predefinedEmotions; track option) {
+                    <ion-select-option [value]="option">{{ option }}</ion-select-option>
+                  }
+                  <ion-select-option [value]="customEmotionOption">{{
+                    customEmotionOption
+                  }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button
+                fill="clear"
+                color="medium"
+                (click)="removeEmotion(i)"
+                aria-label="Eliminar emoción"
+              >
+                <ion-icon slot="icon-only" name="close-outline" aria-hidden="true"></ion-icon>
+              </ion-button>
+            </div>
+
+            @if (isCustomEmotion(i)) {
+              <ion-item lines="none">
+                <ion-input
+                  formControlName="customName"
+                  placeholder="Nombre de la emoción"
+                  aria-label="Nombre de la emoción personalizada"
+                ></ion-input>
+              </ion-item>
+            }
+
+            <ion-item lines="none" class="record-form__range-item">
+              <ion-range
+                formControlName="intensity"
+                min="0"
+                max="10"
+                step="1"
+                snaps="true"
+                pin="true"
+                [attr.aria-label]="'Intensidad de la emoción ' + (i + 1) + ', de 0 a 10'"
+              >
+                <ion-label slot="start">0</ion-label>
+                <ion-label slot="end">10</ion-label>
+              </ion-range>
+            </ion-item>
+            <p class="record-form__range-value">{{ emotionGroup.get('intensity')?.value }}/10</p>
+          </div>
+        }
+      </div>
+
+      <ion-button expand="block" fill="outline" type="button" (click)="addEmotion()">
+        <ion-icon slot="start" name="add-outline" aria-hidden="true"></ion-icon>
+        Añadir otra emoción
+      </ion-button>
+    </section>
+
+    <section class="record-form__section">
+      <h2 class="record-form__label">CONDUCTAS</h2>
+      <p class="record-form__question">¿Cómo reaccioné?</p>
+      <ion-item lines="full">
+        <ion-textarea
+          formControlName="behavior"
+          autoGrow="true"
+          rows="3"
+          placeholder="Describe cómo actuaste (opcional)…"
+          aria-label="¿Cómo reaccioné?"
+        ></ion-textarea>
+      </ion-item>
+    </section>
+
+    <div class="record-form__actions">
+      <ion-button expand="block" type="submit" [disabled]="isSubmitting()">
+        {{ isEditMode() ? 'Guardar cambios' : 'Guardar' }}
+      </ion-button>
+      <ion-button expand="block" fill="clear" type="button" (click)="cancel()">Cancelar</ion-button>
+    </div>
+  </form>
+</ion-content>
