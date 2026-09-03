@@ -1,0 +1,65 @@
+.record-form-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-bottom: 32px;
+}
+
+.record-form__section {
+  margin: 20px 0;
+}
+
+.record-form__label {
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ion-color-primary);
+}
+
+.record-form__question {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--ion-color-medium);
+}
+
+.record-form__error {
+  margin: 6px 2px 0;
+  font-size: 13px;
+  color: var(--ion-color-danger);
+}
+
+.record-form__range-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+.record-form__range-value {
+  margin: 0;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ion-color-medium);
+}
+
+.emotion-row {
+  border: 1px solid var(--ion-color-step-100, #e6e6e6);
+  border-radius: var(--tr-radius);
+  padding: 4px 8px 10px;
+  margin-bottom: 12px;
+}
+
+.emotion-row__top {
+  display: flex;
+  align-items: center;
+}
+
+.emotion-row__select {
+  flex: 1;
+}
+
+.record-form__actions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

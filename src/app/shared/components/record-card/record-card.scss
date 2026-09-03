@@ -1,0 +1,46 @@
+.record-card {
+  margin: 0 0 12px;
+  border-radius: var(--tr-radius);
+  box-shadow: none;
+  border: 1px solid var(--ion-color-step-100, #e6e6e6);
+}
+
+.record-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.record-card__datetime {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ion-color-medium);
+}
+
+.record-card__delete {
+  margin: -8px -8px -8px 0;
+}
+
+.record-card__situation {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.record-card__thought {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  line-height: 1.4;
+}
+
+.record-card__emotions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}

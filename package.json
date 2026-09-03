@@ -1,0 +1,49 @@
+{
+  "name": "thought-record",
+  "version": "0.1.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:prod": "ng build --configuration production --base-href /thought-record/",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint",
+    "format": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,scss,json}\""
+  },
+  "private": true,
+  "packageManager": "npm@10.9.7",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@angular/service-worker": "^21.2.0",
+    "@ionic/angular": "^9.0.2",
+    "date-fns": "^4.4.0",
+    "dexie": "^4.4.5",
+    "ionicons": "^8.1.0",
+    "pdf-lib": "^1.17.1",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "uuid": "^14.0.2",
+    "zone.js": "~0.16.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.23",
+    "@angular/cli": "^21.2.23",
+    "@angular/compiler-cli": "^21.2.0",
+    "@eslint/js": "^10.0.1",
+    "angular-eslint": "^21.4.0",
+    "eslint": "^10.9.0",
+    "fake-indexeddb": "^6.2.5",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.67.0",
+    "vitest": "^4.0.8"
+  }
+}

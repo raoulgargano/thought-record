@@ -1,0 +1,42 @@
+.reports-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 24px;
+}
+
+.week-card {
+  margin: 0 0 12px;
+  border-radius: var(--tr-radius);
+  box-shadow: none;
+  border: 1px solid var(--ion-color-step-100, #e6e6e6);
+}
+
+.week-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.week-card__label {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.week-card__range {
+  margin: 4px 0 2px;
+  font-size: 13px;
+  color: var(--ion-color-medium);
+}
+
+.week-card__count {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--ion-color-medium);
+}
+
+.week-card__actions {
+  display: flex;
+  gap: 8px;
+}
