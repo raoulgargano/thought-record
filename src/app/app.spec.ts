@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { NEVER } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { App } from './app';
 
@@ -7,7 +9,10 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        { provide: SwUpdate, useValue: { isEnabled: false, versionUpdates: NEVER } },
+      ],
     }).compileComponents();
   });
 

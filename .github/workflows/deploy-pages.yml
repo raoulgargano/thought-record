@@ -10,9 +10,12 @@ permissions:
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment, but never cancel one that is already
+# running: cancelling a Pages deploy mid-flight leaves the previously deployed
+# (older) build live, which silently ships stale code.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:

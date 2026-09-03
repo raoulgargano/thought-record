@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Thought Record">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5AA9F0"/>
+      <stop offset="100%" stop-color="#33B3A6"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <g fill="#ffffff">
+    <path d="M 256 186 C 296 238, 300 300, 256 348 C 212 300, 216 238, 256 186 Z" transform="rotate(-70 256 348)" opacity="0.62"/>
+    <path d="M 256 186 C 296 238, 300 300, 256 348 C 212 300, 216 238, 256 186 Z" transform="rotate(70 256 348)" opacity="0.62"/>
+    <path d="M 256 128 C 300 196, 306 284, 256 348 C 206 284, 212 196, 256 128 Z" transform="rotate(-36 256 348)" opacity="0.82"/>
+    <path d="M 256 128 C 300 196, 306 284, 256 348 C 206 284, 212 196, 256 128 Z" transform="rotate(36 256 348)" opacity="0.82"/>
+    <path d="M 256 128 C 300 196, 306 284, 256 348 C 206 284, 212 196, 256 128 Z"/>
+  </g>
+</svg>
