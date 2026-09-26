@@ -135,6 +135,12 @@ export class RecordFormPage implements OnInit, OnDestroy {
           this.emotionsArray.push(this.buildEmotionGroup(emotion)),
         );
       }
+      if (this.emotionsArray.length === 0) {
+        // Emotions open the form, so show a ready-to-use picker rather than
+        // just the add button. Left untouched it stays empty and is dropped
+        // on save, so nothing is recorded that the user didn't choose.
+        this.emotionsArray.push(this.buildEmotionGroup());
+      }
     }
 
     this.draftSubscription = this.form.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
@@ -182,7 +188,9 @@ export class RecordFormPage implements OnInit, OnDestroy {
   private buildEmotionGroup(value?: Partial<EmotionFormValue>): FormGroup {
     return this.fb.group({
       id: [value?.id ?? generateId()],
-      preset: [value?.preset ?? PREDEFINED_EMOTIONS[0], Validators.required],
+      // Left empty on purpose: an emotion is only recorded once picked, and
+      // an untouched row must not block saving (emotions are optional).
+      preset: [value?.preset ?? ''],
       customName: [value?.customName ?? ''],
       intensity: [
         value?.intensity ?? 5,
